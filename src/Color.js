@@ -15,7 +15,8 @@ class Color {
         const r = convert(color.substr(0, 2));
         const g = convert(color.substr(2, 2));
         const b = convert(color.substr(4, 2));
-        const a = convert(color.substr(6, 2) || 'FF');
+        let a = convert(color.substr(6, 2) || 'FF') / 255;
+        a = Math.round(a * 100) / 100;
 
         return format
             .replace(/\$r/i, r)
