@@ -23,12 +23,13 @@ class Color {
     }
 
     static rgb2Hex (color, format='#RRGGBB') {
-        let r, g, b;
+        let r, g, b, a = 1;
 
-        if (Array.isArray(color) && color.length === 3) {
+        if (Array.isArray(color) && color.length >= 3 && color.length <= 4) {
             r = color[0];
             g = color[1];
             b = color[2];
+            a = color[3] || a;
         }
         else if (typeof color === 'string' && color.match(/^rgb\(\d+\s*,\s*\d+\s*,\s*\d+\s*\)$/i)) {
             const matches = color.match(/rgb\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i)
@@ -36,9 +37,17 @@ class Color {
             g = matches[2];
             b = matches[3];
         }
+        else if (typeof color === 'string' && color.match(/^rgba\(\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*(0|1|0\.\d+)\s*\)$/i)) {
+            const matches = color.match(/rgba\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(0|1|0\.\d+)\s*\)/i)
+            r = matches[1];
+            g = matches[2];
+            b = matches[3];
+            a = matches[4];
+        }
 
-        if (r === undefined || g === undefined || b === undefined) {
-            console.error("Color should be an array of 3 numbers or string like `rgb(10, 20, 30)`.");
+        if (r === undefined || g === undefined || b === undefined || a === undefined) {
+            console.error(`Color should be an array like \`[10, 20, 30]\` or \`[10, 20, 30, 0.5]\`
+                or string like \`rgb(10, 20, 30)\` or \`rgba(10, 20, 30, 0.5)\`.`);
             return;
         }
 
@@ -50,6 +59,7 @@ class Color {
         r = convert(parseInt(r, 10));
         g = convert(parseInt(g, 10));
         b = convert(parseInt(b, 10));
+        a = convert(Math.round(parseFloat(a) * 255));
 
         return format
             .replace(/RR/, r.toUpperCase())
@@ -57,7 +67,9 @@ class Color {
             .replace(/GG/, g.toUpperCase())
             .replace(/gg/, g.toLowerCase())
             .replace(/BB/, b.toUpperCase())
-            .replace(/bb/, b.toLowerCase());
+            .replace(/bb/, b.toLowerCase())
+            .replace(/AA/, a.toUpperCase())
+            .replace(/aa/, a.toLowerCase());
     }
 
 }
