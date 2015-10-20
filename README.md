@@ -6,7 +6,7 @@ A simple color converter in JavaScript.
 ## Quick Start
 
 Download the latest version:
-[https://raw.githubusercontent.com/aioutecism/Color/master/build/color.min.js]()
+[https://raw.githubusercontent.com/aioutecism/Color/master/build/color.min.js](https://raw.githubusercontent.com/aioutecism/Color/master/build/color.min.js)
 
 Add it to your html.
 
