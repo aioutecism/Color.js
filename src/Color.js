@@ -1,13 +1,13 @@
 class Color {
 
-    static hex2RGB (color, format='rgb(R, G, B)') {
+    static hex2RGB (color, format='rgba(R, G, B, A)') {
         const convert = (single) => {
             return parseInt(single, 16);
         };
 
         color = color.replace(/^#/, '');
 
-        if (color.length !== 6) {
+        if (!color.match(/^([0-9a-f]{6}|[0-9a-f]{8})$/i)) {
             console.error("Hex's format is not correct.");
             return;
         }
@@ -15,11 +15,13 @@ class Color {
         const r = convert(color.substr(0, 2));
         const g = convert(color.substr(2, 2));
         const b = convert(color.substr(4, 2));
+        const a = convert(color.substr(6, 2) || 'FF');
 
         return format
             .replace(/R/, r)
             .replace(/G/, g)
-            .replace(/B/, b);
+            .replace(/B/, b)
+            .replace(/A/, a);
     }
 
     static rgb2Hex (color, format='#RRGGBB') {
