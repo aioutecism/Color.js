@@ -48,8 +48,10 @@ class Color {
         }
 
         if (r === undefined || g === undefined || b === undefined || a === undefined) {
-            console.error(`Color should be an array like \`[10, 20, 30]\` or \`[10, 20, 30, 0.5]\`
-                or string like \`rgb(10, 20, 30)\` or \`rgba(10, 20, 30, 0.5)\`.`);
+            console.error([
+                "Color should be an array like `[10, 20, 30]` or `[10, 20, 30, 0.5]`",
+                "or string like `rgb(10, 20, 30)` or `rgba(10, 20, 30, 0.5)`."
+            ].join("\n"));
             return;
         }
 
