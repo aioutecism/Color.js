@@ -1,6 +1,6 @@
 class Color {
 
-    static hex2RGB (color, format='rgba(R, G, B, A)') {
+    static hex2RGB (color, format='rgba($r, $g, $b, $a)') {
         const convert = (single) => {
             return parseInt(single, 16);
         };
@@ -18,13 +18,13 @@ class Color {
         const a = convert(color.substr(6, 2) || 'FF');
 
         return format
-            .replace(/R/, r)
-            .replace(/G/, g)
-            .replace(/B/, b)
-            .replace(/A/, a);
+            .replace(/\$r/i, r)
+            .replace(/\$g/i, g)
+            .replace(/\$b/i, b)
+            .replace(/\$a/i, a);
     }
 
-    static rgb2Hex (color, format='#RRGGBB') {
+    static rgb2Hex (color, format='#$RR$GG$BB') {
         let r, g, b, a = 1;
 
         if (Array.isArray(color) && color.length >= 3 && color.length <= 4) {
@@ -66,14 +66,14 @@ class Color {
         a = convert(Math.round(parseFloat(a) * 255));
 
         return format
-            .replace(/RR/, r.toUpperCase())
-            .replace(/rr/, r.toLowerCase())
-            .replace(/GG/, g.toUpperCase())
-            .replace(/gg/, g.toLowerCase())
-            .replace(/BB/, b.toUpperCase())
-            .replace(/bb/, b.toLowerCase())
-            .replace(/AA/, a.toUpperCase())
-            .replace(/aa/, a.toLowerCase());
+            .replace(/\$RR/, r.toUpperCase())
+            .replace(/\$rr/, r.toLowerCase())
+            .replace(/\$GG/, g.toUpperCase())
+            .replace(/\$gg/, g.toLowerCase())
+            .replace(/\$BB/, b.toUpperCase())
+            .replace(/\$bb/, b.toLowerCase())
+            .replace(/\$AA/, a.toUpperCase())
+            .replace(/\$aa/, a.toLowerCase());
     }
 
 }
