@@ -17,40 +17,73 @@ Add it to your html.
 Use in your js.
 
 ```js
-Color.hex2RGB('#0FAAFF'); // rgba(15, 170, 255, 1)
-Color.hex2RGB('#0FAAFF80'); // rgba(15, 170, 255, 0.5)
-Color.hex2RGB('#0FAAFF', '[$r, $g, $b]'); // [15, 170, 255]
-Color.hex2RGB('#0FAAFF80', '[$r, $g, $b, $a]'); // [15, 170, 255, 0.5]
+var colorHex  = new Color('#0FAAFF');
+var colorHexA = new Color('#0FAAFF80');
+var colorRGB  = new Color('rgb(15, 170, 255)');
+var colorRGBA = new Color('rgba(15, 170, 255, 0.5)');
 
-Color.rgb2Hex('rgb(15, 170, 255)'); // #0FAAFF
-Color.rgb2Hex('rgba(15, 170, 255, 0.5)', '#$RR$GG$BB$AA'); // #0FAAFF80
-Color.rgb2Hex([15, 170, 255]); // #0FAAFF
-Color.rgb2Hex([15, 170, 255, 0.5], '#$RR$GG$BB$AA'); // #0FAAFF80
+colorHex.toRGB(); // rgb(15, 170, 255)
+colorHexA.toRGBA(); // rgba(15, 170, 255, 0.502)
+
+colorRGB.toHex(); // #0FAAFF
+colorRGBA.toHexA(); // #0FAAFF80
+
+colorRGBA.toFormat('[$r, $g, $b, $a]'); // [15, 170, 255, 0.5]
 ```
 
 
 ## Docs
 
-### `hex2RGB(color[, format])`
+### `new Color(color)`
 
-*`String`*
+*`Color`*
 
-Convert color of Hex to RGB.
+Create a `Color` object from `color`.
 
 #### color
 
 *Required, `String`*
 
-Hex color string.
+Color string in these formats:
 
-* 6 digits for regular Hex color.
-* 8 digits for Hex color with alpha.
+* 6 digits Hex color like `#0FAAFF`.
+* 8 digits Hex color with alpha like `#0FAAFF80`.
+* CSS RGB color like `rgb(15, 170, 255)`.
+* CSS RGBA color like `rgba(15, 170, 255, 0.5)`.
 
-`#` can be omited.
+### `colorObject.toHex()`
+
+*`String`*
+
+Get 6 digits Hex color like `#0FAAFF`.
+
+### `colorObject.toHexA()`
+
+*`String`*
+
+Get 8 digits Hex color with alpha like `#0FAAFF80`.
+
+### `colorObject.toRGB()`
+
+*`String`*
+
+Get CSS RGB color like `rgb(15, 170, 255)`.
+
+### `colorObject.toRGBA()`
+
+*`String`*
+
+Get CSS RGBA color like `rgba(15, 170, 255, 0.5)`.
+
+### `colorObject.toFormat(format)`
+
+*`String`*
+
+Get custom formated color string.
 
 #### format
 
-*Optional, `String`, Default: `rgba($r, $g, $b, $a)`*
+*Required, `String`*
 
 Format of the return value.
 Avaliable keys are:
@@ -58,37 +91,12 @@ Avaliable keys are:
 * `$r` or `$R`: Red in number range 0 ~ 255.
 * `$g` or `$G`: Green in number range 0 ~ 255.
 * `$b` or `$B`: Blue in number range 0 ~ 255.
-
-### `rgb2Hex(color[, format])`
-
-*`String`*
-
-Convert color of RGB to Hex.
-
-#### color
-
-*Required, `String` or `Array`*
-
-RGB color string or array.
-Avaliable formats are:
-
-* `rgb(15, 170, 255)`
-* `rgba(15, 170, 255, 0.5)`
-* `[15, 170, 255]`
-* `[15, 170, 255, 0.5]`
-
-#### format
-
-*Optional, `String`, Default: `#$RR$GG$BB`*
-
-Format of the return value.
-Avaliable keys are:
-
-* `$RR`: Upper-case red value.
-* `$rr`: Lower-case red value.
-* `$GG`: Upper-case green value.
-* `$gg`: Lower-case green value.
-* `$BB`: Upper-case blue value.
-* `$bb`: Lower-case blue value.
-* `$AA`: Upper-case alpha value.
-* `$aa`: Lower-case alpha value.
+* `$a` or `$A`: Alpha in number range 0 ~ 1.
+* `$0xR`: Upper-case red in hex.
+* `$0xr`: Lower-case red in hex.
+* `$0xG`: Upper-case green in hex.
+* `$0xg`: Lower-case green in hex.
+* `$0xB`: Upper-case blue in hex.
+* `$0xb`: Lower-case blue in hex.
+* `$0xA`: Upper-case alpha in hex.
+* `$0xa`: Lower-case alpha in hex.
