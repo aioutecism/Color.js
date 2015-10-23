@@ -83,7 +83,7 @@ const parseHex = (color) => {
 
 class Color {
 
-    constructor (color, formatHint) {
+    constructor (color) {
         this.channel = undefined;
 
         if (! this.channel) {
